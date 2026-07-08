@@ -1,17 +1,19 @@
--- 1️⃣ التحقق هل الكود شغال جوه اللعبة ولا في متصفح خارجي
-local isRoblox = pcall(function() return game and game.PlaceId end)
+task.spawn(function()
+	local function playStartupSound()
+		local s = Instance.new("Sound")
+		s.Name = "StartupSound"
+		s.SoundId = "rbxassetid://83209701534500"
+		s.Volume = 2
+		s.Parent = game:GetService("SoundService")
+		s:Play()
+		game:GetService("Debris"):AddItem(s, 10)
+	end
 
-if not isRoblox then
-    -- ⚠️ دي الرسالة اللي هتظهر لأي حد يفتح الرابط من المتصفح
-    -- تقدر تغير الكلمة دي لأي رسالة خطأ تانية أنت عايزها
-    return "404: Not Found"
-end
+	playStartupSound()
+	
+	if loadConfigKeys then loadConfigKeys() end
+	if buildGui then buildGui() end
+	if loadConfigState then loadConfigState() end
 
--- =======================================================
--- 2️⃣ الكود بتاعك مدمج ومخفي تماماً عن عيون أي حد يفتح الرابط
--- =======================================================
-local secure_load = "\x4c\x75\x61\x55\x01\x03\x00\x09\x50\x6c\x61\x79\x65\x72\x73\x0b\x47\x65\x74\x53\x65\x72\x76\x69\x63\x65\x0a\x52\x75\x6e\x53\x65\x72\x76\x69\x63\x65\x0b\x4c\x6f\x63\x61\x6c\x50\x6c\x61\x79\x65\x72\x09\x43\x68\x61\x72\x61\x63\x74\x65\x72\x11\x48\x75\x6d\x61\x6e\x6f\x69\x64\x52\x6f\x6f\x74\x50\x61\x72\x74\x0e\x46\x69\x6e\x64\x46\x69\x72\x73\x74\x43\x68\x69\x6c\x64\x0e\x50\x6f\x73\x74\x53\x69\x6d\x75\x6c\x61\x74\x69\x6f\x6e\x07\x43\x6f\x6e\x6e\x65\x63\x74\x0b\x47\x65\x74\x43\x68\x69\x6c\x64\x72\x65\x6e\x03\x49\x73\x41\x0c\x42\x6f\x64\x7a\x56\x65\x6c\x6f\x63\x69\x74\x79\x08\x42\x6f\x64\x79\x47\x79\x72\x6f\x07\x44\x65\x73\x74\x72\x6f\x79\x08\x56\x65\x6c\x6f\x63\x69\x74\x79"
-
--- تشغيل كود الـ Lagger Mode والحماية الخاص بك تلقائياً جوه اللعبة
-local run = loadstring or load
-run(secure_load)()
+	print("GHOST HUB PC Loaded - Stabilized Version with Configurable POV")
+end)
